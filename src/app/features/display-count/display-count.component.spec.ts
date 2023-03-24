@@ -8,8 +8,8 @@ describe('DisplayCountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayCountComponent ]
-    })
+    declarations: [DisplayCountComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(DisplayCountComponent);
