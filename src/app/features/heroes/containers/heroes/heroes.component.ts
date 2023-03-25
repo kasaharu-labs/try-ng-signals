@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { Hero } from '../../../../hero';
+import { HeroesContentComponent } from '../../views/heroes-content/heroes-content.component';
 import { HeroesService } from './heroes.service';
 import { HeroesStore } from './heroes.store';
 
@@ -10,7 +10,7 @@ import { HeroesStore } from './heroes.store';
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink, AsyncPipe],
+  imports: [NgFor, NgIf, AsyncPipe, HeroesContentComponent],
   providers: [HeroesStore, HeroesService],
 })
 export class HeroesComponent implements OnInit {
