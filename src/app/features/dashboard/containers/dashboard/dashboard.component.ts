@@ -1,27 +1,25 @@
-import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Hero } from '../../../../hero';
 import { HeroSearchComponent } from '../../../../hero-search/hero-search.component';
-import { HeroService } from '../../../../hero.service';
+import { DashboardService } from './dashboard.service';
+import { DashboardStore } from './dashboard.store';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [NgFor, RouterLink, HeroSearchComponent],
+  imports: [NgFor, NgIf, AsyncPipe, RouterLink, HeroSearchComponent],
+  providers: [DashboardStore, DashboardService],
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  private store = inject(DashboardStore);
+  private service = inject(DashboardService);
 
-  constructor(private heroService: HeroService) {}
+  heroes$ = this.store.heroes$;
 
   ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));
+    this.service.init();
   }
 }
