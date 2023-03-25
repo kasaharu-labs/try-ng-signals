@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from '../../hero';
-import { HeroService } from '../../hero.service';
-import { HeroSearchComponent } from '../../hero-search/hero-search.component';
-import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Hero } from '../../../../hero';
+import { HeroSearchComponent } from '../../../../hero-search/hero-search.component';
+import { HeroService } from '../../../../hero.service';
 
 @Component({
   selector: 'app-dashboard',
