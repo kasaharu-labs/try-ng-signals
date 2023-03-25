@@ -17,5 +17,8 @@ export class HeroesStore extends ComponentStore<State> {
   }
 
   readonly heroes$ = this.select((state) => state.heroes);
+
   readonly setHeroes = this.updater((state, heroes: Hero[]) => ({ ...state, heroes }));
+  readonly addHero = this.updater((state, hero: Hero) => ({ ...state, heroes: [...state.heroes, hero] }));
+  readonly deleteHero = this.updater((state, hero: Hero) => ({ ...state, heroes: state.heroes.filter((h) => h.id !== hero.id) }));
 }

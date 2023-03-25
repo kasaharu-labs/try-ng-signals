@@ -1,42 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Hero } from '../../../../hero';
-import { HeroService } from '../../../../hero.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { Hero } from '../../../../hero';
+import { HeroesService } from './heroes.service';
+import { HeroesStore } from './heroes.store';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, AsyncPipe],
+  providers: [HeroesStore, HeroesService],
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[] = [];
+  private readonly store = inject(HeroesStore);
+  private readonly service = inject(HeroesService);
 
-  constructor(private heroService: HeroService) {}
+  heroes$ = this.store.heroes$;
 
   ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
+    this.service.init();
   }
 
   add(name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
-    }
-    this.heroService.addHero({ name } as Hero).subscribe((hero) => {
-      this.heroes.push(hero);
-    });
+    this.service.add(name);
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter((h) => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+    this.service.delete(hero);
   }
 }
