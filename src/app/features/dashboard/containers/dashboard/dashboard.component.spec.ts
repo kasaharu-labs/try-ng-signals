@@ -16,11 +16,7 @@ describe('DashboardComponent', () => {
     heroService = jasmine.createSpyObj('HeroService', ['getHeroes']);
     getHeroesSpy = heroService.getHeroes.and.returnValue(of(HEROES));
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([]),
-        DashboardComponent,
-        HeroSearchComponent,
-      ],
+      imports: [RouterTestingModule.withRoutes([]), DashboardComponent, HeroSearchComponent],
       providers: [{ provide: HeroService, useValue: heroService }],
     }).compileComponents();
 
@@ -34,9 +30,7 @@ describe('DashboardComponent', () => {
   });
 
   it('should display "Top Heroes" as headline', () => {
-    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual(
-      'Top Heroes'
-    );
+    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual('Top Heroes');
   });
 
   it('should call heroService', waitForAsync(() => {
