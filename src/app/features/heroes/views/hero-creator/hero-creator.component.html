@@ -1,1 +1,7 @@
-<p>hero-creator works!</p>
+<div>
+  <label for="new-hero">Hero name: </label>
+  <input id="new-hero" #heroName />
+
+  <!-- (click) 入力値をadd()に渡したあと、入力をクリアする -->
+  <button type="button" class="add-button" (click)="heroAdded.emit(heroName.value); heroName.value = ''">Add hero</button>
+</div>

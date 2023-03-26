@@ -1,12 +1,6 @@
 <h2>My Heroes</h2>
 
-<div>
-  <label for="new-hero">Hero name: </label>
-  <input id="new-hero" #heroName />
-
-  <!-- (click) 入力値をadd()に渡したあと、入力をクリアする -->
-  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value = ''">Add hero</button>
-</div>
+<app-hero-creator (heroAdded)="add($event)"></app-hero-creator>
 
 <ng-container *ngIf="heroes$ | async as heroes">
   <app-heroes-content [heroes]="heroes" (heroDeleted)="delete($event)"></app-heroes-content>
