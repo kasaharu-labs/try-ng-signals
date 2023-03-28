@@ -18,7 +18,11 @@ export class HeroesComponent implements OnInit {
   private readonly store = inject(HeroesStore);
   private readonly service = inject(HeroesService);
 
-  heroes$ = this.store.heroes$;
+  state = this.store.state;
+
+  get heroes() {
+    return this.state().heroes;
+  }
 
   ngOnInit(): void {
     this.service.init();

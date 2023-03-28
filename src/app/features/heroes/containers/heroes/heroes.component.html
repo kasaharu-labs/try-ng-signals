@@ -1,7 +1,4 @@
 <h2>My Heroes</h2>
 
 <app-hero-creator (heroAdded)="add($event)"></app-hero-creator>
-
-<ng-container *ngIf="heroes$ | async as heroes">
-  <app-heroes-content [heroes]="heroes" (heroDeleted)="delete($event)"></app-heroes-content>
-</ng-container>
+<app-heroes-content [heroes]="heroes" (heroDeleted)="delete($event)"></app-heroes-content>

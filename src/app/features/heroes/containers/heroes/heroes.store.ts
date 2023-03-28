@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
+import { Injectable, signal } from '@angular/core';
 import { Hero } from '../../../../hero';
 
 interface State {
@@ -11,14 +10,10 @@ const initialState: State = {
 };
 
 @Injectable()
-export class HeroesStore extends ComponentStore<State> {
-  constructor() {
-    super(initialState);
-  }
+export class HeroesStore {
+  state = signal<State>(initialState);
 
-  readonly heroes$ = this.select((state) => state.heroes);
-
-  readonly setHeroes = this.updater((state, heroes: Hero[]) => ({ ...state, heroes }));
-  readonly addHero = this.updater((state, hero: Hero) => ({ ...state, heroes: [...state.heroes, hero] }));
-  readonly deleteHero = this.updater((state, hero: Hero) => ({ ...state, heroes: state.heroes.filter((h) => h.id !== hero.id) }));
+  readonly setHeroes = (heroes: Hero[]) => this.state.set({ heroes });
+  readonly addHero = (hero: Hero) => this.state.set({ heroes: [...this.state().heroes, hero] });
+  readonly deleteHero = (hero: Hero) => this.state.set({ heroes: this.state().heroes.filter((h) => h.id !== hero.id) });
 }
