@@ -1,6 +1,4 @@
 <h2>Top Heroes</h2>
-<ng-container *ngIf="heroes$ | async as heroes">
-  <app-dashboard-content [heroes]="heroes"></app-dashboard-content>
-</ng-container>
+<app-dashboard-content [heroes]="heroes()"></app-dashboard-content>
 
 <app-hero-search></app-hero-search>

@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { HeroSearchComponent } from '../../../../hero-search/hero-search.component';
 import { DashboardContentComponent } from '../../views/dashboard-content/dashboard-content.component';
 import { DashboardService } from './dashboard.service';
@@ -17,7 +17,8 @@ export class DashboardComponent implements OnInit {
   private store = inject(DashboardStore);
   private service = inject(DashboardService);
 
-  heroes$ = this.store.heroes$;
+  state = this.store.state;
+  heroes = computed(() => this.state().heroes);
 
   ngOnInit(): void {
     this.service.init();
