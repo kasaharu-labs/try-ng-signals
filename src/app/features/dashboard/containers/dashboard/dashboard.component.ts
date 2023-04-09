@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   private service = inject(DashboardService);
 
   state = this.store.state;
-  heroes = computed(() => this.state().heroes);
+  heroes = computed(() => this.state().heroes.slice(1, 5));
 
   ngOnInit(): void {
     this.service.init();
