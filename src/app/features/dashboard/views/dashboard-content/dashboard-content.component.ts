@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Signal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Hero } from '../../../../hero';
 
@@ -11,5 +11,6 @@ import { Hero } from '../../../../hero';
   styleUrls: ['./dashboard-content.component.scss'],
 })
 export class DashboardContentComponent {
-  @Input() heroes: Hero[] | null = null;
+  @Input() heroes!: Signal<Hero[]>;
+  topHeroes = computed(() => this.heroes().slice(1, 5));
 }
