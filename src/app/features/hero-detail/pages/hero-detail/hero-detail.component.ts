@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HeroDetailComponent } from '../../containers/hero-detail/hero-detail.component';
 
 @Component({
-  selector: 'app-hero-detail',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.scss'],
+  imports: [CommonModule, HeroDetailComponent],
+  template: '<app-hero-detail></app-hero-detail>',
 })
 export class HeroDetailPageComponent {}
