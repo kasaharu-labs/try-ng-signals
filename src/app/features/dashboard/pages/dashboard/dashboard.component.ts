@@ -6,5 +6,6 @@ import { DashboardComponent } from '../../containers/dashboard/dashboard.compone
   standalone: true,
   imports: [CommonModule, DashboardComponent],
   template: '<app-dashboard></app-dashboard>',
+  host: { 'collision-id': 'DashboardPageComponent' },
 })
 export class DashboardPageComponent {}
