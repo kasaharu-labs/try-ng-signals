@@ -1,18 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
+import { ROUTES } from '../../../../routes';
+import { HeroDetailComponent } from '../../containers/hero-detail/hero-detail.component';
 import { HeroDetailPageComponent } from './hero-detail.component';
 
-describe('HeroDetailComponent', () => {
-  let component: HeroDetailPageComponent;
-  let fixture: ComponentFixture<HeroDetailPageComponent>;
+@Component({ selector: 'app-hero-detail', template: '', standalone: true })
+class MockHeroDetailComponent {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+describe('HeroDetailComponent', () => {
+  let harness: RouterTestingHarness;
+  let component: HeroDetailPageComponent;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [HeroDetailPageComponent],
-    });
-    fixture = TestBed.createComponent(HeroDetailPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      providers: [provideRouter(ROUTES)],
+    })
+      .overrideComponent(HeroDetailPageComponent, { remove: { imports: [HeroDetailComponent] }, add: { imports: [MockHeroDetailComponent] } })
+      .compileComponents();
+
+    harness = await RouterTestingHarness.create();
+    component = await harness.navigateByUrl('/detail/1', HeroDetailPageComponent);
+
+    harness.detectChanges();
   });
 
   it('should create', () => {
