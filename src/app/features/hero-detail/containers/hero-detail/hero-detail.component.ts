@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location, NgIf, UpperCasePipe } from '@angular/common';
-
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Hero } from '../../../../hero';
 import { HeroService } from '../../../../hero.service';
-import { FormsModule } from '@angular/forms';
+import { RouterParams } from '../../router-params';
 
 @Component({
   selector: 'app-hero-detail',
@@ -16,14 +15,18 @@ import { FormsModule } from '@angular/forms';
 export class HeroDetailComponent implements OnInit {
   hero: Hero | undefined;
 
-  constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) {}
+  constructor(private heroService: HeroService, private location: Location, private readonly routerParams: RouterParams) {}
 
   ngOnInit(): void {
     this.getHero();
   }
 
   getHero(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    const id = this.routerParams.params().heroId;
+    if (id === null) {
+      return;
+    }
+
     this.heroService.getHero(id).subscribe((hero) => (this.hero = hero));
   }
 
